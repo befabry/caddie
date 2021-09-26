@@ -1,0 +1,28 @@
+{
+  "name": "caddie",
+  "version": "1.0.0",
+  "description": "An app to help households with shopping",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx concurrently \"npm:start:*\"",
+    "start:client": "npm run start --workspace=client",
+    "start:backend": "npm run start:dev --workspace=backend"
+  },
+  "keywords": [
+    "NestJs",
+    "React"
+  ],
+  "author": "Benjamin Fabry",
+  "contributors": [
+    "Olivia Hick"
+  ],
+  "license": "ISC",
+  "workspaces": [
+    "client",
+    "backend"
+  ],
+  "devDependencies": {
+    "concurrently": "^6.2.1"
+  }
+}
