@@ -4,10 +4,11 @@
   "description": "An app to help households with shopping",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "npx prettier --write \"{backend,client}/{src,test}/**/*.{ts,tsx}\"",
     "start": "npx concurrently \"npm:start:*\"",
     "start:client": "npm run start --workspace=client",
-    "start:backend": "npm run start:dev --workspace=backend"
+    "start:backend": "npm run start:dev --workspace=backend",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "NestJs",
@@ -23,6 +24,7 @@
     "backend"
   ],
   "devDependencies": {
-    "concurrently": "^6.2.1"
+    "concurrently": "^6.2.1",
+    "prettier": "^2.4.1"
   }
 }
