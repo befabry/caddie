@@ -1,0 +1,8 @@
+{
+  "name": "@caddie/common",
+  "version": "0.0.1",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "main:src": "src/index.ts",
+  "dependencies": {}
+}

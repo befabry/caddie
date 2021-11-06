@@ -1,13 +1,13 @@
 {
   "name": "caddie",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "An app to help households with shopping",
   "main": "index.js",
   "scripts": {
     "format": "npx prettier --write \"{backend,client}/{src,test}/**/*.{ts,tsx}\"",
     "start": "npx concurrently \"npm:start:*\"",
-    "start:client": "npm run start --workspace=client",
-    "start:backend": "npm run start:dev --workspace=backend",
+    "start:client": "yarn workspace @caddie/client start",
+    "start:backend": "yarn workspace @caddie/backend start:dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -19,10 +19,17 @@
     "Olivia Hick"
   ],
   "license": "ISC",
-  "workspaces": [
-    "client",
-    "backend"
-  ],
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "packages/**/webpack-dev-server",
+      "**/babel-loader",
+      "**/babel-jest"
+    ]
+  },
   "devDependencies": {
     "concurrently": "^6.2.1",
     "prettier": "^2.4.1"
