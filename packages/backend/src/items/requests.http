@@ -1,0 +1,13 @@
+@name=apple
+@price=2
+@type=fruit
+
+### Create a new item
+POST http://localhost:3001/items
+Content-Type: application/json
+
+{
+    "name": "{{name}}",
+    "price": {{price}},
+    "type": "{{type}}"
+}
