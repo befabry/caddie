@@ -12,7 +12,6 @@ export class ItemsService {
   ) {}
 
   create(createItemDto: CreateItemDto) {
-    console.log(createItemDto);
     return this.itemRepository.create(createItemDto);
   }
 

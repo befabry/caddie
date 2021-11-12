@@ -1,6 +1,7 @@
 import { Module, ValidationPipe } from '@nestjs/common';
 import { APP_PIPE } from '@nestjs/core';
 import { SequelizeModule } from '@nestjs/sequelize';
+import { resolve } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Item } from './items/entities/item.entity';
@@ -10,10 +11,10 @@ import { ItemsModule } from './items/items.module';
   imports: [
     SequelizeModule.forRoot({
       dialect: 'sqlite',
-      database: 'db.sqlite',
+      database: 'main',
       models: [Item],
-      synchronize: true,
-      sync: { alter: true },
+      storage: 'db.sqlite',
+      sync: { alter: true, force: true },
     }),
     ItemsModule,
   ],
