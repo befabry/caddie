@@ -28,6 +28,10 @@ export const up: Migration = async ({ context: sequelize }) => {
       type: DataType.DATE,
       allowNull: false,
     },
+    deletedAt: {
+      type: DataType.DATE,
+      allowNull: true,
+    },
   });
 };
 export const down: Migration = async ({ context: sequelize }) => {
