@@ -16,7 +16,7 @@ export class ItemsService {
   }
 
   findAll() {
-    return `This action returns all items`;
+    return this.itemRepository.findAll();
   }
 
   findOne(id: number) {

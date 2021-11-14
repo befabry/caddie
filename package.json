@@ -4,9 +4,9 @@
   "description": "An app to help households with shopping",
   "main": "index.js",
   "scripts": {
-    "format": "npx prettier --write \"{backend,client}/{src,test}/**/*.{ts,tsx}\"",
+    "format": "npx prettier --write \"{backend,frontend}/{src,test}/**/*.{ts,tsx}\"",
     "start": "npx concurrently \"npm:start:*\"",
-    "start:client": "yarn workspace @caddie/client start",
+    "start:frontend": "yarn workspace @caddie/frontend start",
     "start:backend": "yarn workspace @caddie/backend start:dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
