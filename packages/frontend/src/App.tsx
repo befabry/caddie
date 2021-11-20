@@ -1,9 +1,12 @@
-import { useGetItemsQuery } from './slices';
+import { useGetItemQuery, useGetItemsQuery } from './slices';
 
 function App() {
-  const { data: items } = useGetItemsQuery([]);
+  const { data: items } = useGetItemsQuery(null);
+  const { data: item } = useGetItemQuery(1);
 
   console.log(items);
+
+  console.log(item);
 
   return (
     <div className="App">

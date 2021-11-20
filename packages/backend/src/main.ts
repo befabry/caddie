@@ -15,6 +15,9 @@ async function bootstrap() {
     // TODO remove
     { cors: true },
   );
+
+  app.setGlobalPrefix('api');
+
   await app.listen(3001);
 }
 bootstrap();

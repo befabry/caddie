@@ -1,7 +1,6 @@
 import { Module, ValidationPipe } from '@nestjs/common';
 import { APP_PIPE } from '@nestjs/core';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { resolve } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Item } from './items/entities/item.entity';

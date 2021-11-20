@@ -27,7 +27,7 @@ export class ItemsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.itemsService.findOne(+id);
+    return this.itemsService.findOne(parseInt(id));
   }
 
   @Patch(':id')

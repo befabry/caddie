@@ -20,7 +20,7 @@ export class ItemsService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} item`;
+    return this.itemRepository.findByPk(id);
   }
 
   update(id: number, updateItemDto: UpdateItemDto) {
