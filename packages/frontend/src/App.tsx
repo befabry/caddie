@@ -1,12 +1,22 @@
-import { useGetItemQuery, useGetItemsQuery } from './slices';
+import { useEffect } from 'react';
+import {
+  useAddItemMutation,
+  useGetItemQuery,
+  useGetItemsQuery,
+} from './slices';
 
 function App() {
-  const { data: items } = useGetItemsQuery(null);
-  const { data: item } = useGetItemQuery(1);
+  // const { data: items } = useGetItemsQuery();
+  // const { data: item } = useGetItemQuery(1);
 
-  console.log(items);
+  const [addNewPost, { isLoading }] = useAddItemMutation();
 
-  console.log(item);
+  useEffect(() => {
+    const test = async () => {
+      await addNewPost({ name: 'React Test', price: 5, type: 'Fruit' });
+    };
+    test();
+  }, []);
 
   return (
     <div className="App">

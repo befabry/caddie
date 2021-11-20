@@ -3,7 +3,7 @@
 @type=fruit
 
 ### Create a new item
-POST http://localhost:3001/items
+POST http://localhost:3001/api/items
 Content-Type: application/json
 
 {
