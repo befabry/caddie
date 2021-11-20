@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
@@ -23,8 +23,13 @@ export class ItemsService {
     return this.itemRepository.findByPk(id);
   }
 
-  update(id: number, updateItemDto: UpdateItemDto) {
-    return `This action updates a #${id} item`;
+  async update(id: number, updateItemDto: Partial<Item>) {
+    const item = await this.itemRepository.findByPk(id);
+    if (!item) {
+      throw new NotFoundException('Item not found');
+    }
+
+    return this.itemRepository.update({ ...updateItemDto }, { where: { id } });
   }
 
   remove(id: number) {

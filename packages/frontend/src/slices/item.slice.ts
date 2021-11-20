@@ -18,9 +18,20 @@ export const itemApiSlice = apiSlice.injectEndpoints({
         body,
       }),
     }),
+    updateItem: builder.mutation<Item, Partial<Item> & Pick<Item, 'id'>>({
+      query: ({ id, ...patch }) => ({
+        url: `/items/${id}`,
+        method: 'PATCH',
+        body: patch,
+      }),
+    }),
   }),
 });
 
 // Export the auto-generated hook for the `getItems` query endpoint
-export const { useAddItemMutation, useGetItemQuery, useGetItemsQuery } =
-  itemApiSlice;
+export const {
+  useAddItemMutation,
+  useGetItemQuery,
+  useGetItemsQuery,
+  useUpdateItemMutation,
+} = itemApiSlice;
