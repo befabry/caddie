@@ -1,7 +1,7 @@
-import { BaseItems } from '@caddie/common';
+import { BaseItem } from '@caddie/common';
 import { IsNumber, IsOptional, IsPositive, IsString } from 'class-validator';
 
-export class UpdateItemDto implements Partial<BaseItems> {
+export class UpdateItemDto implements Partial<BaseItem> {
   @IsOptional()
   @IsString()
   name: string;

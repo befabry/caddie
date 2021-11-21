@@ -1,3 +1,4 @@
+@id=10
 @name=apple
 @price=2
 @type=fruit
@@ -10,4 +11,19 @@ Content-Type: application/json
     "name": "{{name}}",
     "price": {{price}},
     "type": "{{type}}"
+}
+
+### Fetch an item
+GET  http://localhost:3001/api/items/{{id}}
+
+### Fetch a list of items
+GET  http://localhost:3001/api/items
+
+
+### Update an item
+PATCH  http://localhost:3001/api/items/{{id}}
+Content-Type: application/json
+
+{
+    "name": "patch"
 }

@@ -1,6 +1,6 @@
 import { Id } from './id.interface';
 
-export interface BaseItems extends Id {
+export interface BaseItem extends Id {
   name: string;
   price: number;
   type: string;

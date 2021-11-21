@@ -19,8 +19,13 @@ export class ItemsService {
     return this.itemRepository.findAll();
   }
 
-  findOne(id: number) {
-    return this.itemRepository.findByPk(id);
+  async findOne(id: number) {
+    const item = await this.itemRepository.findByPk(id);
+    if (!item) {
+      throw new NotFoundException('Item not found');
+    }
+
+    return item;
   }
 
   async update(id: number, updateItemDto: Partial<Item>) {

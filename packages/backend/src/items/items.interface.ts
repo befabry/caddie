@@ -1,4 +1,3 @@
-import { BaseItems } from '@caddie/common';
-import { Timestampable } from 'src/utils';
+import { BaseItem, Timestampable } from '@caddie/common';
 
-export interface IItems extends BaseItems, Timestampable {}
+export interface IItems extends BaseItem, Timestampable {}

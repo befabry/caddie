@@ -1,4 +1,4 @@
-import { BaseItems as Item } from '@caddie/common';
+import { BaseItem as Item } from '@caddie/common';
 import { apiSlice } from './api.slice';
 
 export const itemApiSlice = apiSlice.injectEndpoints({
@@ -8,7 +8,7 @@ export const itemApiSlice = apiSlice.injectEndpoints({
       // The URL for the request is 'http://localhost:3001/items'
       query: () => '/items',
     }),
-    getItem: builder.query<Item, number>({
+    getItem: builder.query<Item, number | string>({
       query: (itemId) => `/items/${itemId}`,
     }),
     addItem: builder.mutation<Item, Omit<Item, 'id'>>({
@@ -27,8 +27,7 @@ export const itemApiSlice = apiSlice.injectEndpoints({
     }),
   }),
 });
-
-// Export the auto-generated hook for the `getItems` query endpoint
+// Export the auto-generated hook for the `Items` query endpoint
 export const {
   useAddItemMutation,
   useGetItemQuery,
