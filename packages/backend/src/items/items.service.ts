@@ -1,26 +1,23 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectModel } from '@nestjs/sequelize';
+import { PrismaService } from 'src/prisma.service';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
-import { Item } from './entities/item.entity';
+import { Items } from '@prisma/client';
 
 @Injectable()
 export class ItemsService {
-  constructor(
-    @InjectModel(Item)
-    private itemRepository: typeof Item,
-  ) {}
+  constructor(private readonly prisma: PrismaService) {}
 
-  create(createItemDto: CreateItemDto) {
-    return this.itemRepository.create(createItemDto);
+  create(createItemDto: CreateItemDto): Promise<Items> {
+    return this.prisma.items.create({ data: createItemDto });
   }
 
-  findAll() {
-    return this.itemRepository.findAll();
+  findAll(): Promise<Items[]> {
+    return this.prisma.items.findMany();
   }
 
-  async findOne(id: number) {
-    const item = await this.itemRepository.findByPk(id);
+  async findOne(id: number): Promise<Items> {
+    const item = await this.prisma.items.findUnique({ where: { id } });
     if (!item) {
       throw new NotFoundException('Item not found');
     }
@@ -28,13 +25,16 @@ export class ItemsService {
     return item;
   }
 
-  async update(id: number, updateItemDto: Partial<Item>) {
-    const item = await this.itemRepository.findByPk(id);
+  async update(id: number, updateItemDto: UpdateItemDto): Promise<Items> {
+    const item = await this.prisma.items.findUnique({ where: { id } });
     if (!item) {
       throw new NotFoundException('Item not found');
     }
 
-    return this.itemRepository.update({ ...updateItemDto }, { where: { id } });
+    return this.prisma.items.update({
+      where: { id },
+      data: { ...updateItemDto },
+    });
   }
 
   remove(id: number) {
