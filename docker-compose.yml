@@ -10,16 +10,32 @@ services:
       POSTGRES_DB: caddie_app
     ports:
       - '5432:5432'
+    networks:
+      - appnetwork
 
-  # nestjs:
-  #   container_name: nestjs
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #     args:
-  #       - BUILD_CONTEXT=backend
-  #   ports:
-  #     - '3001:3000'
+  app:
+    container_name: caddie_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - BUILD_FRONT=backend
+        - BUILD_BACK=frontend
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
+      - '/app/packages/backend/node_modules'
+      - '/app/packages/frontend/node_modules'
+    ports:
+      - '3001:3001' # Nest
+      - '3000:3000' # React
+    depends_on:
+      - postgres
+    networks:
+      - appnetwork
+
+networks:
+  appnetwork:
 
   # react:
   #   container_name: react

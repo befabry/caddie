@@ -1,16 +1,22 @@
 #build
 FROM node:latest as build
-ARG BUILD_CONTEXT
+ARG BUILD_FRONT
+ARG BUILD_BACK
 
 WORKDIR /app
 
+USER root
+
 COPY package.json .
 COPY yarn.lock .
-COPY ./packages/$BUILD_CONTEXT/package.json packages/$BUILD_CONTEXT/package.json
-# COPY ./packages/$BUILD_CONTEXT/tsconfig.json packages/$BUILD_CONTEXT/tsconfig.json
+COPY tsconfig.json .
+COPY ./packages/$BUILD_FRONT/package.json packages/$BUILD_FRONT/package.json
+COPY ./packages/$BUILD_BACK/package.json packages/$BUILD_BACK/package.json
 
-RUN yarn install
+RUN yarn global add react-scripts && \
+    yarn install && \
+    yarn workspace @caddie/$BUILD_BACK prisma generate
 
-COPY ./packages/$BUILD_CONTEXT packages/$BUILD_CONTEXT
+COPY . .
 
-RUN yarn start:$BUILD_CONTEXT
+CMD [ "yarn", "start" ]
