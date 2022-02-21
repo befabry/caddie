@@ -10,39 +10,28 @@ services:
       POSTGRES_DB: caddie_app
     ports:
       - '5432:5432'
-    networks:
-      - appnetwork
 
-  app:
-    container_name: caddie_app
-    build:
-      context: .
-      dockerfile: Dockerfile
-      args:
-        - BUILD_FRONT=backend
-        - BUILD_BACK=frontend
+  backend:
+    image: node:16
     volumes:
       - '.:/app'
-      - '/app/node_modules'
-      - '/app/packages/backend/node_modules'
-      - '/app/packages/frontend/node_modules'
     ports:
       - '3001:3001' # Nest
-      - '3000:3000' # React
     depends_on:
       - postgres
-    networks:
-      - appnetwork
+    working_dir: /app
+    command: ["yarn", "workspace", "@caddie/backend", "start:dev"]
+    environment:
+      # with docker we listen to the postgres network, but it is reachable at @localhost on our post
+      DATABASE_URL: postgresql://postgres:password@postgres:5432/caddie_app?schema=public
 
-networks:
-  appnetwork:
-
-  # react:
-  #   container_name: react
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #     args:
-  #       - BUILD_CONTEXT=frontend
-  #   ports:
-  #     - '3000:3000'
+  frontend:
+    image: node:16
+    volumes:
+      - '.:/app'
+    ports:
+      - '3000:3000' # React
+    depends_on:
+      - backend
+    working_dir: /app
+    command: ["yarn", "workspace", "@caddie/frontend", "start"]

@@ -18,6 +18,7 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api');
 
-  await app.listen(3001);
+  //With Docker we can't listen to localhost, listen to "0.0.0.0"
+  await app.listen(3001, '0.0.0.0');
 }
 bootstrap();

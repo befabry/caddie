@@ -19,7 +19,6 @@ GET  http://localhost:3001/api/items/{{id}}
 ### Fetch a list of items
 GET  http://localhost:3001/api/items
 
-
 ### Update an item
 PATCH  http://localhost:3001/api/items/{{id}}
 Content-Type: application/json
