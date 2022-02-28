@@ -6,14 +6,23 @@ import {
   Patch,
   Param,
   Delete,
+  UseInterceptors,
+  ClassSerializerInterceptor,
+  Inject,
 } from '@nestjs/common';
 import { ItemsService } from './items.service';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
+import { ResponseItem } from './dto/response-item.dto';
+import { HashIdHelper } from 'src/hash-id.helper';
 
+@UseInterceptors(ClassSerializerInterceptor)
 @Controller('items')
 export class ItemsController {
-  constructor(private readonly itemsService: ItemsService) {}
+  constructor(
+    private readonly itemsService: ItemsService,
+    @Inject('HASHID_HELPER') private readonly hash: HashIdHelper, // <-- Ok
+  ) {}
 
   @Post()
   create(@Body() createItemDto: CreateItemDto) {
@@ -26,8 +35,12 @@ export class ItemsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.itemsService.findOne(parseInt(id));
+  async findOne(@Param('id') id: string) {
+    console.log(this.hash.encode(+id));
+    const item = await this.itemsService.findOne(parseInt(id));
+
+    console.log(new ResponseItem(item));
+    return new ResponseItem(item);
   }
 
   @Patch(':id')

@@ -6,7 +6,8 @@
     "removeComments": true,
     // "emitDecoratorMetadata": true,
     // "experimentalDecorators": true,
-    // "allowSyntheticDefaultImports": true,
+    // required for HashIds
+    "allowSyntheticDefaultImports": true,
     // "target": "es2017",
     "sourceMap": true,
     "outDir": "./dist",
